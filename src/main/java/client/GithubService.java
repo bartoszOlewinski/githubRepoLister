@@ -18,6 +18,6 @@ public interface GithubService {
     Set<Repository> getByLogin(@PathParam("login") String login);
 
     @GET
-    //@Path("/repos/{login}/{repo}/branches")
-    Set<Branch> getByRepo(@PathParam("login") String owner, @PathParam("repo") String repo);
+    @Path("/repos/{login}/{repo}/branches")
+    Set<Branch> getBranchesByRepoAndOwner(@PathParam("login") String owner, @PathParam("repo") String repo);
 }

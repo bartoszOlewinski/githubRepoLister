@@ -25,12 +25,10 @@ public class GithubResource {
         //return githubService.getByLogin("bartoszOlewinski");
     }
 
-    /*
-    @GET
-    @Path("/repos/{username}/{repository}/branches")
-    public Set<Branch> getBranches(String login, String repo) {
-        return githubService.getByRepo(login, repo);
-    }
 
-     */
+    @GET
+    @Path("/repos/{login}/{repository}/branches")
+    public Set<Branch> getBranches(String login, String repo) {
+        return githubService.getBranchesByRepoAndOwner(login, repo);
+    }
 }
