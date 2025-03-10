@@ -1,23 +1,27 @@
 package client;
 
 
-import entity.Branch;
-import entity.Repository;
+import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import response.github.BranchResponse;
+import response.github.RepositoryResponse;
 
-
-import java.util.Set;
-
+import java.lang.reflect.Type;
+import java.util.List;
 
 @RegisterRestClient
 public interface GithubService {
 
     @GET
     @Path("/users/{login}/repos")
-    Set<Repository> getByLogin(@PathParam("login") String login);
+    List<RepositoryResponse> getByLogin(@PathParam("login") String login);
 
     @GET
     @Path("/repos/{login}/{repo}/branches")
-    Set<Branch> getBranchesByRepoAndOwner(@PathParam("login") String owner, @PathParam("repo") String repo);
+    List<BranchResponse> getBranchesByRepoAndOwner(@PathParam("login") String owner, @PathParam("repo") String repo);
+
+    @GET
+    @Path("/users/{username}")
+    Boolean getUserExists(@PathParam("username") String username);
 }
