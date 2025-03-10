@@ -2,7 +2,6 @@ package rest;
 
 import client.GithubService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.ErrorMessage;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import jakarta.inject.Inject;
@@ -35,7 +34,6 @@ public class GithubResource {
     @Path("/users/{login}/repos")
     public List<RepositoryResponse> getRepos(@PathParam("login") String login) {
         return githubService.getByLogin(login);
-        //return githubService.getByLogin("bartoszOlewinski");
     }
 
     @GET
@@ -48,7 +46,7 @@ public class GithubResource {
     @Path("/users/{login}/repos/TEST")
     public List<SummaryResponse> getReposTEST(String login) throws JsonProcessingException {
         //this.myService.getCośTam(login)
-        
+
         List<SummaryResponse> responses = new ArrayList<>();
 
         List<RepositoryResponse> repoResponses = this.githubService.getByLogin(login);
@@ -72,12 +70,6 @@ public class GithubResource {
         });
 
         return responses;
-    }
-
-    @GET
-    @Path("users/{username}")
-   public Boolean getUserExists(String username) {
-        return githubService.getUserExists(username);
     }
 
 

@@ -21,7 +21,4 @@ public interface GithubService {
     @Path("/repos/{login}/{repo}/branches")
     List<BranchResponse> getBranchesByRepoAndOwner(@PathParam("login") String owner, @PathParam("repo") String repo);
 
-    @GET
-    @Path("/users/{username}")
-    Boolean getUserExists(@PathParam("username") String username);
 }
