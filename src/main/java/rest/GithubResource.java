@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jboss.resteasy.reactive.ClientWebApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +51,7 @@ public class GithubResource {
     @GET
     @Blocking
     @Path("/repositories/{login}")
-    public Uni<List<RepositorySummaryResponse>> getRepositories(String login) throws WebApplicationException {
+    public Uni<List<RepositorySummaryResponse>> getRepositories(String login) throws ClientWebApplicationException {
         return repositoryService.getSummaryResponse(login, githubService);
     }
 

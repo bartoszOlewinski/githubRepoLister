@@ -30,10 +30,6 @@ public class RepositoryService {
         try {
             repoResponses = githubService.getByLogin(login);
         } catch (ClientWebApplicationException e) {
-            throw new ClientWebApplicationException(e);
-        }
-
-        if (repoResponses.isEmpty()) {
             throw new WebApplicationException(
                     Response.status(404)
                             .entity("{\"status\":\"404\",\"error\":\"User does not exist\"}")
