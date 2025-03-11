@@ -11,10 +11,8 @@ class GithubResourceTest {
     @Test
     void testSummaryEndpoint() {
         given()
-          .when().get("/github/repos/bartoszOlewinski/commitHistorySampler/branches/TEST")
-          .then()
-             .statusCode(200)
-             .body(is("Hello from Quarkus REST"));
+                .when().get("/github/repositories/bartoszOlewinski")
+                .then()
+                .statusCode(200);
     }
-
 }
