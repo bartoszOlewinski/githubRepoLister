@@ -2,8 +2,10 @@ package service;
 
 
 import client.GithubService;
+import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.ClientWebApplicationException;
 import response.RepositorySummaryResponse;
 import response.github.BranchResponse;
 import response.github.RepositoryResponse;
@@ -21,10 +23,15 @@ public class RepositoryService {
     }
 
 
-    public List<RepositorySummaryResponse> getSummaryResponse(String login, GithubService githubService){
+    public Uni<List<RepositorySummaryResponse>> getSummaryResponse(String login, GithubService githubService){
         List<RepositorySummaryResponse> responses = new ArrayList<>();
+        List<RepositoryResponse> repoResponses;
 
-        List<RepositoryResponse> repoResponses = githubService.getByLogin(login);
+        try {
+            repoResponses = githubService.getByLogin(login);
+        } catch (ClientWebApplicationException e) {
+            throw new ClientWebApplicationException(e);
+        }
 
         if (repoResponses.isEmpty()) {
             throw new WebApplicationException(
@@ -46,6 +53,6 @@ public class RepositoryService {
             responses.add(new RepositorySummaryResponse(repositoryName, ownerLogin, branchNameToLastCommitShaMap));
         });
 
-        return responses;
+        return Uni.createFrom().item(responses);
     }
 }

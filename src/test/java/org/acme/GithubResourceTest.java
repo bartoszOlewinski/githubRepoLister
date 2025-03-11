@@ -7,11 +7,11 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-class ExampleResourceTest {
+class GithubResourceTest {
     @Test
-    void testHelloEndpoint() {
+    void testSummaryEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/github/repos/bartoszOlewinski/commitHistorySampler/branches/TEST")
           .then()
              .statusCode(200)
              .body(is("Hello from Quarkus REST"));

@@ -51,7 +51,7 @@ public class GithubResource {
     @Blocking
     @Path("/repositories/{login}")
     public Uni<List<RepositorySummaryResponse>> getRepositories(String login) throws WebApplicationException {
-        return Uni.createFrom().item(repositoryService.getSummaryResponse(login, githubService));
+        return repositoryService.getSummaryResponse(login, githubService);
     }
 
 
