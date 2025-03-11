@@ -2,6 +2,7 @@ package service;
 
 
 import client.GithubService;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
@@ -31,7 +32,7 @@ public class RepositoryService {
             repoResponses = githubService.getByLogin(login);
         } catch (ClientWebApplicationException e) {
             throw new WebApplicationException(
-                    Response.status(404)
+                    Response.status(HttpResponseStatus.NOT_FOUND.code())
                             .entity("{\"status\":\"404\",\"error\":\"User does not exist\"}")
                             .type("application/json")
                             .build()
