@@ -1,15 +1,23 @@
 package exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
+@Setter
+@Getter
+public class ErrorMessage {
 
-@ToString
-@AllArgsConstructor
-public class ErrorMessage implements Serializable {
-
-    private Integer status;
     private String message;
+    private Boolean status;
+
+    public ErrorMessage(String message, Boolean status) {
+        super();
+        this.message = message;
+        this.status = status;
+    }
+
+    public ErrorMessage() {
+        super();
+    }
 
 }
