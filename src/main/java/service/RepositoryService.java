@@ -39,14 +39,16 @@ public class RepositoryService {
         }
 
         repoResponses.forEach(repositoryResponse -> {
-            String ownerLogin = repositoryResponse.getOwner().getLogin();
-            String repositoryName = repositoryResponse.getName();
-            List<BranchResponse> branchResponses = githubService.getBranchesByRepoAndOwner(ownerLogin, repositoryName);
-            Map<String, String> branchNameToLastCommitShaMap = branchResponses.stream()
-                    .collect(Collectors.toMap(BranchResponse::getName, branchResponse -> branchResponse.getCommit().getSha()));
+            if (!repositoryResponse.getFork()) {
+                String ownerLogin = repositoryResponse.getOwner().getLogin();
+                String repositoryName = repositoryResponse.getName();
+                List<BranchResponse> branchResponses = githubService.getBranchesByRepoAndOwner(ownerLogin, repositoryName);
+                Map<String, String> branchNameToLastCommitShaMap = branchResponses.stream()
+                        .collect(Collectors.toMap(BranchResponse::getName, branchResponse -> branchResponse.getCommit().getSha()));
 
 
-            responses.add(new RepositorySummaryResponse(repositoryName, ownerLogin, branchNameToLastCommitShaMap));
+                responses.add(new RepositorySummaryResponse(repositoryName, ownerLogin, branchNameToLastCommitShaMap));
+            }
         });
 
         return Uni.createFrom().item(responses);
