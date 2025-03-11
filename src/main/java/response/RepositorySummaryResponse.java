@@ -11,7 +11,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SummaryResponse {
+public class RepositorySummaryResponse {
 
     private String repositoryName;
     private String ownerLogin;
